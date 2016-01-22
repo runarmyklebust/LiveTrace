@@ -5,8 +5,10 @@ exports.get = function (req) {
 
     var view = resolve('livetrace.html');
 
-    var params = {
-        launcherJsUrl: portal.assetUrl({path: "/js/launcher.js", application: "com.enonic.xp.admin.ui"})
+    var model = {
+        launcherJsUrl: portal.assetUrl({path: "/js/launcher.js", application: "com.enonic.xp.admin.ui"}),
+        jsUrl: portal.assetUrl({path: "/js/main.js"}),
+        cssUrl: portal.assetUrl({path: "/css/main.css"})
     };
 
     params.serviceUrl = portal.serviceUrl({
@@ -15,7 +17,6 @@ exports.get = function (req) {
 
     return {
         contentType: 'text/html',
-        body: mustache.render(view, params)
+        body: mustache.render(view, model)
     };
 };
-
