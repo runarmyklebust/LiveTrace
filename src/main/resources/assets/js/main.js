@@ -53,7 +53,11 @@ function updateGraph(values, ids) {
 }
 
 function showData(event) {
-    alert("ID" + event.point.category);
+    $.ajax({
+        dataType: 'json',
+        url: SERVICE_URL + '?id=' + event.point.category,
+        success: updateDetail
+    });
 }
 
 function renderTrace(data) {
@@ -75,24 +79,27 @@ function renderTrace(data) {
 
 }
 
-function clickDetail(id) {
-    $.ajax({
-        dataType: 'json',
-        url: SERVICE_URL + '?' + id,
-        success: updateDetail
-    });
-}
-
 function updateDetail(data) {
-    var html = '<table>';
-    html += '<tr><td>Id:<td><td>' + data.id + '</td></tr>';
-    html += '<tr><td>Date:</td><td>' + data.requestTime + '</td>';
-    html += '<tr><td>Time:<td><td>' + data.time + ' ms</td></tr>';
-    html += '<tr><td>Completed:<td><td>' + data.completed + '</td></tr>';
-    html += '<tr><td>Url:<td><td>' + data.url + '</td></tr>';
-    html += '<tr><td>Site:<td><td>' + data.site + '</td></tr>';
-    html += '<tr><td>Content:<td><td>' + data.content + '</td></tr>';
+    var html = '<table width="100%">';
+    html += addRow('Id', data.id);
+    html += addRow('Date', data.requestTime);
+    html += addRow('Time', data.time);
+    html += addRow('Completed', data.completed);
+    html += addRow('Url', data.url);
+
+    if (data.site) {
+        html += addRow('Site', data.site);
+    }
+
+    if (data.content) {
+        html += addRow('Content', data.content);
+    }
+
     html += '</table>';
 
     $('#detail').html(html);
+}
+
+function addRow(name, value) {
+    return '<tr><td width="20%" style="padding-right: 10px; a"><b>' + name + '</b></td><td width="80%">' + value + '</td></tr>';
 }
