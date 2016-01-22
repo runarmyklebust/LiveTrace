@@ -1,6 +1,6 @@
 package com.enonic.app;
 
-import java.time.Instant;
+import javax.servlet.http.HttpServletRequest;
 
 public class TraceEntry
 {
@@ -8,13 +8,13 @@ public class TraceEntry
 
     private boolean finished;
 
-    private final Instant startTime;
+    private final long startTime;
 
-    private Instant finishedTime;
+    private long finishedTime;
 
-    public TraceEntry()
+    public TraceEntry( final HttpServletRequest request )
     {
-        this.startTime = Instant.now();
+        this.startTime = System.currentTimeMillis();
     }
 
     public TraceEntryId getId()
@@ -27,5 +27,14 @@ public class TraceEntry
         return finished;
     }
 
-    public boolean
+    public void finished( final HttpServletRequest req )
+    {
+        this.finishedTime = System.currentTimeMillis();
+    }
+
+    public long getTime()
+    {
+        return this.finishedTime - this.startTime;
+    }
+
 }

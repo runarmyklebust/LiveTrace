@@ -23,7 +23,13 @@ public class LiveTraceFilter
     protected void doHandle( final HttpServletRequest req, final HttpServletResponse res, final FilterChain chain )
         throws Exception
     {
+        final Trace trace = Trace.instance;
+        TraceEntry entry = trace.add( req );
+        req.setAttribute( TraceEntry.class.getName(), entry );
 
         chain.doFilter( req, res );
+
+        entry = (TraceEntry) req.getAttribute( TraceEntry.class.getName() );
+        entry.finished( req );
     }
 }
