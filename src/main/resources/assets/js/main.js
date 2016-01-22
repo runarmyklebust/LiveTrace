@@ -83,7 +83,7 @@ function updateDetail(data) {
     var html = '<table width="100%">';
     html += addRow('Id', data.id);
     html += addRow('Date', data.requestTime);
-    html += addRow('Time', data.time);
+    html += addRow('Time', data.time + " ms");
     html += addRow('Completed', data.completed);
     html += addRow('Url', data.url);
 

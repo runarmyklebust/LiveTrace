@@ -9,7 +9,7 @@ import com.google.common.collect.EvictingQueue;
 public class Trace
     implements Iterable<TraceEntry>
 {
-    public final static Trace instance = new Trace( 50 );
+    public final static Trace instance = new Trace( 100 );
 
     private final int maxSize;
 
