@@ -17,7 +17,7 @@ public class TraceEntry
 
     private final long startTime;
 
-    private long finishedTime;
+    private Long finishedTime;
 
     public TraceEntry( final HttpServletRequest request )
     {
@@ -43,7 +43,11 @@ public class TraceEntry
 
     public long getTime()
     {
-        return this.finishedTime - this.startTime;
-    }
+        if ( this.finishedTime != null )
+        {
+            return this.finishedTime - this.startTime;
+        }
 
+        return System.currentTimeMillis() - startTime;
+    }
 }

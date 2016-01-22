@@ -11,10 +11,13 @@ public class Trace
 {
     public final static Trace instance = new Trace( 50 );
 
+    private final int maxSize;
+
     private EvictingQueue<TraceEntry> traces;
 
     private Trace( final int size )
     {
+        this.maxSize = size;
         this.traces = EvictingQueue.create( size );
     }
 
@@ -37,6 +40,16 @@ public class Trace
         }
 
         return null;
+    }
+
+    public int size()
+    {
+        return this.traces.size();
+    }
+
+    public int maxSize()
+    {
+        return this.maxSize;
     }
 
     @Override
