@@ -9,6 +9,10 @@ exports.get = function (req) {
         launcherJsUrl: portal.assetUrl({path: "/js/launcher.js", application: "com.enonic.xp.admin.ui"})
     };
 
+    params.serviceUrl = portal.serviceUrl({
+        service: 'livetrace'
+    });
+
     return {
         contentType: 'text/html',
         body: mustache.render(view, params)

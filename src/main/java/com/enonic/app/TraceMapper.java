@@ -24,6 +24,7 @@ public class TraceMapper
         for ( final TraceEntry entry : trace )
         {
             gen.map();
+            gen.value( "requestTime", entry.getRequestTime() );
             gen.value( "id", entry.getId().getValue() );
             gen.value( "time", entry.getTime() );
             gen.value( "completed", entry.isFinished() );

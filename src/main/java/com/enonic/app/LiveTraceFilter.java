@@ -11,9 +11,9 @@ import org.osgi.service.component.annotations.Component;
 import com.enonic.xp.web.filter.OncePerRequestFilter;
 
 @Component(immediate = true, service = Filter.class,
-    property = {"osgi.http.whiteboard.filter.pattern=/", //
-        "service.ranking:Integer=100", //
-        "osgi.http.whiteboard.filter.dispatcher=FORWARD", //
+    property = {"osgi.http.whiteboard.filter.pattern=/portal", //
+        "service.ranking:Integer=500", //
+      //  "osgi.http.whiteboard.filter.dispatcher=FORWARD", //
         "osgi.http.whiteboard.filter.dispatcher=REQUEST"})
 public class LiveTraceFilter
     extends OncePerRequestFilter

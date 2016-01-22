@@ -10,6 +10,12 @@ exports.get = function (req) {
         result = traceLib.getAll();
     }
 
+    if (!result) {
+        return {
+            status: 404
+        };
+    }
+
     return {
         status: 200,
         contentType: 'application/json',

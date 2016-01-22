@@ -1,5 +1,7 @@
 package com.enonic.app;
 
+import java.time.Instant;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.enonic.xp.portal.PortalRequest;
@@ -9,7 +11,7 @@ public class TraceEntry
 {
     private TraceEntryId id;
 
-    private boolean finished;
+    private boolean finished = false;
 
     private PortalRequest portalRequest;
 
@@ -17,12 +19,20 @@ public class TraceEntry
 
     private final long startTime;
 
+    private final Instant requestTime;
+
     private Long finishedTime;
+
+    private String site;
+
+    private String content;
 
     public TraceEntry( final HttpServletRequest request )
     {
         this.startTime = System.currentTimeMillis();
         this.request = request;
+        this.id = new TraceEntryId();
+        this.requestTime = Instant.now();
     }
 
     public TraceEntryId getId()
@@ -38,7 +48,16 @@ public class TraceEntry
     public void finished()
     {
         this.finishedTime = System.currentTimeMillis();
-        this.portalRequest = PortalRequestAccessor.get();
+
+        this.portalRequest = PortalRequestAccessor.get( this.request );
+
+        if ( this.portalRequest != null )
+        {
+            this.site = this.portalRequest.getSite() != null ? this.portalRequest.getSite().getPath().toString() : "N/A";
+            this.content = this.portalRequest.getContent() != null ? this.portalRequest.getContent().getPath().toString() : "N/A";
+        }
+
+        this.finished = true;
     }
 
     public long getTime()
@@ -50,4 +69,25 @@ public class TraceEntry
 
         return System.currentTimeMillis() - startTime;
     }
+
+    public Instant getRequestTime()
+    {
+        return requestTime;
+    }
+
+    public String getUrl()
+    {
+        return this.request.getRequestURI();
+    }
+
+    public String getContent()
+    {
+        return this.content;
+    }
+
+    public String getSite()
+    {
+        return this.site;
+    }
+
 }
