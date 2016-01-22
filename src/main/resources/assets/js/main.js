@@ -45,6 +45,9 @@ function updateGraph(values, ids) {
         }],
         legend: {
             enabled: false
+        },
+        title : {
+            text: null
         }
     });
 }
