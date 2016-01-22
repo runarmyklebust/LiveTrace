@@ -18,7 +18,6 @@ import com.enonic.xp.web.filter.OncePerRequestFilter;
 public class LiveTraceFilter
     extends OncePerRequestFilter
 {
-
     @Override
     protected void doHandle( final HttpServletRequest req, final HttpServletResponse res, final FilterChain chain )
         throws Exception
@@ -30,6 +29,6 @@ public class LiveTraceFilter
         chain.doFilter( req, res );
 
         entry = (TraceEntry) req.getAttribute( TraceEntry.class.getName() );
-        entry.finished( req );
+        entry.finished();
     }
 }

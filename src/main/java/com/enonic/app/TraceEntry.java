@@ -2,11 +2,18 @@ package com.enonic.app;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.enonic.xp.portal.PortalRequest;
+import com.enonic.xp.portal.PortalRequestAccessor;
+
 public class TraceEntry
 {
     private TraceEntryId id;
 
     private boolean finished;
+
+    private PortalRequest portalRequest;
+
+    private HttpServletRequest request;
 
     private final long startTime;
 
@@ -15,6 +22,7 @@ public class TraceEntry
     public TraceEntry( final HttpServletRequest request )
     {
         this.startTime = System.currentTimeMillis();
+        this.request = request;
     }
 
     public TraceEntryId getId()
@@ -27,9 +35,10 @@ public class TraceEntry
         return finished;
     }
 
-    public void finished( final HttpServletRequest req )
+    public void finished()
     {
         this.finishedTime = System.currentTimeMillis();
+        this.portalRequest = PortalRequestAccessor.get();
     }
 
     public long getTime()
