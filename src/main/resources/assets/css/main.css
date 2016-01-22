@@ -8,3 +8,7 @@
     height: 300px;
     margin: 1em auto;
 }
+
+#detail table tr {
+    border-right: black double 2px;
+}

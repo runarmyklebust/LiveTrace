@@ -22,6 +22,7 @@ public class TraceEntryMapper
         gen.value( "url", entry.getUrl() );
         gen.value( "site", entry.getSite() );
         gen.value( "content", entry.getContent() );
+        gen.value( "requestTime", entry.getRequestTime() );
 
     }
 }

@@ -51,3 +51,25 @@ function renderTrace(data) {
     updateGraph(values);
 
 }
+
+function clickDetail(id) {
+    $.ajax({
+        dataType: 'json',
+        url: SERVICE_URL + '?' + id,
+        success: updateDetail
+    });
+}
+
+function updateDetail(data) {
+    var html = '<table>';
+    html += '<tr><td>Id:<td><td>' + data.id + '</td></tr>';
+    html += '<tr><td>Date:</td><td>' + data.requestTime + '</td>';
+    html += '<tr><td>Time:<td><td>' + data.time + ' ms</td></tr>';
+    html += '<tr><td>Completed:<td><td>' + data.completed + '</td></tr>';
+    html += '<tr><td>Url:<td><td>' + data.url + '</td></tr>';
+    html += '<tr><td>Site:<td><td>' + data.site + '</td></tr>';
+    html += '<tr><td>Content:<td><td>' + data.content + '</td></tr>';
+    html += '</table>';
+
+    $('#detail').html(html);
+}
