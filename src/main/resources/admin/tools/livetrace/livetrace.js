@@ -11,7 +11,7 @@ exports.get = function (req) {
         cssUrl: portal.assetUrl({path: "/css/main.css"})
     };
 
-    params.serviceUrl = portal.serviceUrl({
+    model.serviceUrl = portal.serviceUrl({
         service: 'livetrace'
     });
 
