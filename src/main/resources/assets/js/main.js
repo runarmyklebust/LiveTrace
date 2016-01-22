@@ -1,5 +1,6 @@
 $(function () {
 
+    updateTrace();
     setInterval(updateTrace, 1000);
 
 });
@@ -39,6 +40,10 @@ function updateGraph(values) {
 function renderTrace(data) {
 
     var values = [];
+    for (var i = 0; i < data.max; i++) {
+        values[i] = 0;
+    }
+
     data.entries.forEach(function (value, index) {
         values[index] = value.time;
     });
