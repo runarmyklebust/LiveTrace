@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<tool xmlns="urn:enonic:xp:model:1.0">
+  <display-name>Live-Trace</display-name>
+  <description>Amazing live request trace</description>
+  <icon>img/icon.jpg</icon>
+  <allow>
+    <principal>role:system.admin</principal>
+    <principal>role:system.admin</principal>
+  </allow>
+</tool>
