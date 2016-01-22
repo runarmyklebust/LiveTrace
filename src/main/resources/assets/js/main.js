@@ -1,7 +1,7 @@
 $(function () {
 
     updateTrace();
-    setInterval(updateTrace, 1000);
+    setInterval(updateTrace, 500);
 
 });
 
@@ -16,11 +16,17 @@ function updateTrace() {
 
 }
 
-function updateGraph(values, ids) {
+function updateGraph(values, ids, colors) {
     $('#container').highcharts({
         chart: {
             type: 'column',
             animation: false
+        },
+        plotOptions: {
+            series: {
+                pointPadding: 0,
+                colorByPoint: true
+            }
         },
         yAxis: {
             min: 0,
@@ -41,13 +47,17 @@ function updateGraph(values, ids) {
             animation: false,
             events: {
                 click: showData
-            }
+            },
+            colors: colors
         }],
         legend: {
             enabled: false
         },
         title : {
             text: null
+        },
+        tooltip: {
+            enabled: false
         }
     });
 }
@@ -64,18 +74,24 @@ function renderTrace(data) {
 
     var values = [];
     var ids = [];
+    var colors = [];
 
     for (var i = 0; i < data.max; i++) {
         values[i] = 0;
         ids[i] = 0;
+        colors[i] = '#0000ff';
     }
 
     data.entries.forEach(function (value, index) {
         values[index] = value.time;
         ids[index] = value.id;
+
+        if (!value.completed) {
+            colors[index] = '#ff0000';
+        }
     });
 
-    updateGraph(values, ids);
+    updateGraph(values, ids, colors);
 
 }
 
