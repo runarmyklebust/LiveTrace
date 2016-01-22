@@ -16,7 +16,7 @@ function updateTrace() {
 
 }
 
-function updateGraph(values) {
+function updateGraph(values, ids) {
     $('#container').highcharts({
         chart: {
             type: 'column',
@@ -28,12 +28,21 @@ function updateGraph(values) {
                 text: 'Time (ms)'
             }
         },
+        xAxis: {
+            min: 0,
+            labels: {
+                enabled: false
+            },
+            categories: ids
+        },
         series: [{
             name: 'Request',
             data: values,
             animation: false
-
-        }]
+        }],
+        legend: {
+            enabled: false
+        }
     });
 }
 
@@ -46,8 +55,9 @@ function renderTrace(data) {
 
     data.entries.forEach(function (value, index) {
         values[index] = value.time;
+        ids[index] = value.id;
     });
 
-    updateGraph(values);
+    updateGraph(values, ids);
 
 }
