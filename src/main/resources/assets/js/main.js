@@ -38,7 +38,10 @@ function updateGraph(values, ids) {
         series: [{
             name: 'Request',
             data: values,
-            animation: false
+            animation: false,
+            events: {
+                click: showData
+            }
         }],
         legend: {
             enabled: false
@@ -46,11 +49,18 @@ function updateGraph(values, ids) {
     });
 }
 
+function showData(event) {
+    alert("ID" + event.point.category);
+}
+
 function renderTrace(data) {
 
     var values = [];
+    var ids = [];
+
     for (var i = 0; i < data.max; i++) {
         values[i] = 0;
+        ids[i] = 0;
     }
 
     data.entries.forEach(function (value, index) {
