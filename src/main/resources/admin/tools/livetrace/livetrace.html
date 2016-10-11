@@ -1,22 +1,53 @@
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Live Trace</title>
-    <link href="{{cssUrl}}" type="text/css"/>
+    <title>New Live Trace</title>
     <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script th:src="${tableSorterUrl}" type="text/javascript"></script>
+    <script th:src="${serviceUrl}" type="text/javascript"></script>
+    <link th:href="${cssUrl}" rel="stylesheet" type="text/css"/>
+    <link th:href="${tableSorterCss}" rel="stylesheet" type="text/css"/>
 
-    <script>
-        var SERVICE_URL = '{{serviceUrl}}';
-    </script>
-
-    <script src="{{jsUrl}}"></script>
 </head>
 <body>
-<h1>Live Trace</h1>
+<h1>Live Trace hepp</h1>
 
-<div id="container"></div>
+<table id="summaryTable" class="tablesorter" cellspacing="2">
+    <thead>
+    <tr>
+        <th>url</th>
+        <th>max</th>
+        <th>count</th>
+        <th>total</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
-<div id="detail" style="margin: 20px;"></div>
+
+<table id="test" cellspacing="2">
+    <thead>
+    <tr>
+        <th>url</th>
+        <th>count</th>
+        <th>min</th>
+        <th>max</th>
+        <th>avg</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="bucket : ${data.aggregations.urls.buckets}">
+        <tr>
+            <td th:text="${bucket.key}">ID</td>
+            <td th:text="${bucket.docCount}"></td>
+            <td th:text="${bucket.durationStats.min}"></td>
+            <td th:text="${bucket.durationStats.max}"></td>
+            <td th:text="${bucket.durationStats.avg}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
 
 </body>
 </html>

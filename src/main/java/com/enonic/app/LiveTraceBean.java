@@ -1,22 +1,25 @@
 package com.enonic.app;
 
+import com.enonic.app.trace.TraceKeeper;
+import com.enonic.app.trace.TraceMapper;
+import com.enonic.xp.script.bean.BeanContext;
+import com.enonic.xp.script.bean.ScriptBean;
+
+@SuppressWarnings("unused")
 public class LiveTraceBean
+    implements ScriptBean
 {
+    private TraceKeeper traceKeeper;
+
     public TraceMapper getAll()
     {
-        return new TraceMapper( Trace.instance );
+        return new TraceMapper( traceKeeper );
     }
 
-    public TraceEntryMapper getEntry( final String id )
+    @Override
+    public void initialize( final BeanContext context )
     {
-        final TraceEntry traceEntry = Trace.instance.get( TraceEntryId.from( id ) );
-
-        if ( traceEntry == null )
-        {
-            return null;
-        }
-
-        return new TraceEntryMapper( traceEntry );
+        this.traceKeeper = context.getService( TraceKeeper.class ).get();
     }
 
 }
